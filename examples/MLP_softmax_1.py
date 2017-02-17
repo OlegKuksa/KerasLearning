@@ -1,6 +1,7 @@
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation
 from keras.optimizers import SGD
+import numpy as np
 
 model = Sequential()
 
@@ -17,9 +18,12 @@ sgd = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
 model.compile(loss='categorical_crossentropy',
               optimizer=sgd,
               metrics=['accuracy'])
-x_train = np.random.random((batch_size * 10, 64, 20))
-y_train = np.random.random((16 * 10, 64))
+x_train = np.random.random((20, 20))
+y_train = np.random.random((20, 10))
 model.fit(x_train, y_train,
-          nb_epoch=20,
+          nb_epoch=200,
           batch_size=16)
+
+x_test = np.random.random((20, 20))
+y_test = np.random.random((20, 10))
 score = model.evaluate(x_test, y_test, batch_size=16)
