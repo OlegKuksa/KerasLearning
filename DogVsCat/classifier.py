@@ -1,15 +1,39 @@
+from time import sleep
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
 from keras.layers import Convolution2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
+from keras.callbacks import Callback
+
+class CallbackSleep(Callback):
+    def on_train_begin(self, logs={}):
+        print('on_train_begin')
+        sleep(5)
+ 
+    def on_train_end(self, logs={}):
+        print('on_train_end')
+        sleep(5)
+ 
+    def on_epoch_end(self, epoch, logs={}):
+        print('on_epoch_end')
+        sleep(20)
+ 
+    def on_batch_begin(self, batch, logs={}):
+        print('on_batch_begin')
+        sleep(2)
+ 
+    def on_batch_end(self, batch, logs={}):
+        print('on_batch_end')
+        sleep(2)
+
 
 img_width, img_height = 150, 150
 
 train_data_dir = 'data/train'
 validation_data_dir = 'data/validation'
-nb_train_samples = 500
+nb_train_samples = 2000
 nb_validation_samples = 800
-nb_epoch = 300
+nb_epoch = 50
 
 
 model = Sequential()
@@ -65,7 +89,8 @@ model.fit_generator(
         samples_per_epoch=nb_train_samples,
         nb_epoch=nb_epoch,
         validation_data=validation_generator,
-        nb_val_samples=nb_validation_samples
+        nb_val_samples=nb_validation_samples,
+        callbacks=[CallbackSleep()]
         )
 
-model.save_weights('first_try.h5')
+model.save_weights('second_try.h5')
