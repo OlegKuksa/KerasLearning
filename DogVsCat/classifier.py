@@ -4,52 +4,53 @@ from keras.models import Sequential
 from keras.layers import Convolution2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
 from keras.callbacks import Callback
+from keras.optimizers import Nadam, Adam
 
 class CallbackSleep(Callback):
     def on_train_begin(self, logs={}):
         print('on_train_begin')
-        sleep(5)
  
     def on_train_end(self, logs={}):
         print('on_train_end')
-        sleep(5)
  
     def on_epoch_end(self, epoch, logs={}):
         print('on_epoch_end')
-        sleep(20)
+        sleep(1)
  
     def on_batch_begin(self, batch, logs={}):
         print('on_batch_begin')
-        sleep(2)
  
     def on_batch_end(self, batch, logs={}):
         print('on_batch_end')
         sleep(2)
 
 
+
 img_width, img_height = 150, 150
 
-train_data_dir = 'data/train'
-validation_data_dir = 'data/validation'
+train_data_dir = 'train'
+validation_data_dir = 'validation'
 nb_train_samples = 2000
 nb_validation_samples = 800
-nb_epoch = 50
+nb_epoch = 30
 
 
 model = Sequential()
-model.add(Convolution2D(32, 3, 3, input_shape=(3, img_width, img_height)))
+model.add(Convolution2D(32, 3, 3, 
+                        input_shape=(3, img_width, img_height),
+                        init='glorot_normal'))
 model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2, 2),))
+model.add(MaxPooling2D(pool_size=(2, 2), dim_ordering="tf"))
 
 
-model.add(Convolution2D(32, 3, 3))
+model.add(Convolution2D(32, 3, 3, init='glorot_normal'))
 model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(MaxPooling2D(pool_size=(2, 2), dim_ordering="tf"))
 
 
-model.add(Convolution2D(64, 3, 3))
+model.add(Convolution2D(64, 3, 3, init='glorot_normal'))
 model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(MaxPooling2D(pool_size=(2, 2), dim_ordering="tf"))
 
 model.add(Flatten())
 model.add(Dense(64))
@@ -58,8 +59,11 @@ model.add(Dropout(0.5))
 model.add(Dense(1))
 model.add(Activation('sigmoid'))
 
+
+NesAdam = Nadam(lr=0.0003)
+
 model.compile(loss='binary_crossentropy',
-              optimizer='rmsprop',
+              optimizer=NesAdam,
               metrics=['accuracy'])
 
 train_datagen = ImageDataGenerator(
@@ -90,7 +94,6 @@ model.fit_generator(
         nb_epoch=nb_epoch,
         validation_data=validation_generator,
         nb_val_samples=nb_validation_samples,
-        callbacks=[CallbackSleep()]
         )
 
-model.save_weights('second_try.h5')
+model.save_weights('third_try.h5')

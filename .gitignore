@@ -1,2 +1,4 @@
 venv
 DogVsCat/data
+DogVsCat/train
+DogVsCat/validation
