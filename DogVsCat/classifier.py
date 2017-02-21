@@ -6,24 +6,6 @@ from keras.layers import Activation, Dropout, Flatten, Dense
 from keras.callbacks import Callback
 from keras.optimizers import Nadam, Adam
 
-class CallbackSleep(Callback):
-    def on_train_begin(self, logs={}):
-        print('on_train_begin')
- 
-    def on_train_end(self, logs={}):
-        print('on_train_end')
- 
-    def on_epoch_end(self, epoch, logs={}):
-        print('on_epoch_end')
-        sleep(1)
- 
-    def on_batch_begin(self, batch, logs={}):
-        print('on_batch_begin')
- 
-    def on_batch_end(self, batch, logs={}):
-        print('on_batch_end')
-        sleep(2)
-
 
 
 img_width, img_height = 150, 150
@@ -40,15 +22,16 @@ model.add(Convolution2D(32, 3, 3,
                         input_shape=(3, img_width, img_height),
                         init='glorot_normal'))
 model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2, 2), dim_ordering="tf"))
+model.add(MaxPooling2D(pool_size=(2, 2),
+                       dim_ordering="tf"))
 
 
-model.add(Convolution2D(32, 3, 3, init='glorot_normal'))
+model.add(Convolution2D(32, 5, 5, init='glorot_normal'))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2), dim_ordering="tf"))
 
 
-model.add(Convolution2D(64, 3, 3, init='glorot_normal'))
+model.add(Convolution2D(32, 7, 7, init='glorot_normal'))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2), dim_ordering="tf"))
 
@@ -96,4 +79,4 @@ model.fit_generator(
         nb_val_samples=nb_validation_samples,
         )
 
-model.save_weights('third_try.h5')
+model.save_weights('save_weight.h5')
