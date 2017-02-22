@@ -12,11 +12,7 @@ from keras import backend as K
 
 def load_and_scale_imgs():
    img_names = ['data/test/15.jpg',
-                'data/test/16.jpg',
-                'data/test/2.jpg',
-                'data/test/images.jpeg',
-                'data/test/ex.jpg',
-                'data/test/ex2.jpeg',]
+                'data/test/16.jpg',]
  
    imgs = [np.transpose(scipy.misc.imresize(scipy.misc.imread(img_name), (150, 150)),
                         (2, 0, 1)).astype('float32')

@@ -1,4 +1,4 @@
-from time import sleep
+from datetime import datetime
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
 from keras.layers import Convolution2D, MaxPooling2D
@@ -87,4 +87,5 @@ model.fit_generator(
         nb_val_samples=nb_validation_samples,
         )
 
-model.save_weights('save_weight.h5')
+model.save('models/model_{}.h5'.format(datetime.datetime.now())
+model.save_weights('weights/weight_{}.h5'.format(datetime.datetime.now())
