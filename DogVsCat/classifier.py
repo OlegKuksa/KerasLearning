@@ -43,7 +43,7 @@ model.add(Dense(1))
 model.add(Activation('sigmoid'))
 
 
-NesAdam = Nadam(lr=0.0003)
+NesAdam = Nadam(lr=0.00025)
 
 model.compile(loss='binary_crossentropy',
               optimizer=NesAdam,
