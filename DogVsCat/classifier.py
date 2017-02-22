@@ -14,7 +14,7 @@ train_data_dir = 'train'
 validation_data_dir = 'validation'
 nb_train_samples = 2000
 nb_validation_samples = 800
-nb_epoch = 30
+nb_epoch = 60
 
 
 model = Sequential()
@@ -31,9 +31,17 @@ model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2), dim_ordering="tf"))
 
 
+model.add(Convolution2D(32, 5, 5, init='glorot_normal'))
+model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(2, 2), dim_ordering="tf"))
+
+
+
+
 model.add(Convolution2D(32, 7, 7, init='glorot_normal'))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2), dim_ordering="tf"))
+
 
 model.add(Flatten())
 model.add(Dense(64))
