@@ -87,5 +87,5 @@ model.fit_generator(
         nb_val_samples=nb_validation_samples,
         )
 
-model.save('models/model_{}.h5'.format(datetime.datetime.now())
-model.save_weights('weights/weight_{}.h5'.format(datetime.datetime.now())
+model.save('models/model_{}.h5'.format(datetime.now()))
+model.save_weights('weights/weight_{}.h5'.format(datetime.now()))
