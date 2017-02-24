@@ -10,9 +10,9 @@ from keras.optimizers import Nadam, Adam
 
 img_width, img_height = 150, 150
 
-train_data_dir = 'train'
-validation_data_dir = 'validation'
-nb_train_samples = 2000
+train_data_dir = 'data/train'
+validation_data_dir = 'data/validation'
+nb_train_samples = 4000
 nb_validation_samples = 800
 nb_epoch = 60
 
@@ -51,7 +51,7 @@ model.add(Dense(1))
 model.add(Activation('sigmoid'))
 
 
-NesAdam = Nadam(lr=0.00025)
+NesAdam = Nadam(lr=0.00027)
 
 model.compile(loss='binary_crossentropy',
               optimizer=NesAdam,
